@@ -1,22 +1,25 @@
 class Solution {
     public boolean checkValidString(String s) {
-        int leftMin = 0, leftMax = 0;
-
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                leftMin++;
-                leftMax++;
-            } else if (c == ')') {
-                leftMin--;
-                leftMax--;
-            } else {
-                leftMin--;
-                leftMax++;
+        int n=s.length();
+       int open=0;
+        int close=0;
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)=='('||s.charAt(i)=='*'){
+                open++;
+            }else{
+                open--;
             }
-            if (leftMax < 0) return false;
-            if (leftMin < 0) leftMin = 0;
+            if(open<0)return false;
         }
+        for(int i=n-1;i>=0;i--){
+            if(s.charAt(i)==')'||s.charAt(i)=='*'){
+                close++;
+            }else{
+                close--;
+            }
+            if(close<0)return false;
+        }
+        return true;
         
-        return leftMin == 0;
     }
 }
