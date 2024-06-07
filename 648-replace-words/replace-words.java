@@ -1,24 +1,27 @@
 class Solution {
-    public String replaceWords(List<String> dictionary, String sentence) {
-        Set<String> rootSet = new HashSet<>(dictionary);
-
-        StringBuilder result = new StringBuilder();
-        String[] words = sentence.split("\\s+");
-
-        for (String word : words) {
-            String prefix = "";
-            for (int i = 1; i <= word.length(); i++) {
-                prefix = word.substring(0, i);
-                if (rootSet.contains(prefix)) {
-                    break;
-                }
+    
+    public String findroot(String word,Set<String>set){
+        for(int i=1;i<=word.length();i++){
+        String root=word.substring(0,i);
+            if(set.contains(root)){
+                return root;
             }
-            if (result.length() > 0) {
-                result.append(" ");
-            }
-            result.append(prefix);
         }
-
-        return result.toString();
+        return word;
     }
+    public String replaceWords(List<String> dictionary, String sentence) {
+     //convert dict into set
+        Set<String>set=new HashSet<>(dictionary);
+       
+        //sb to store and return as final ans
+        
+        String[] words = sentence.split(" ");
+        StringBuilder sb=new StringBuilder();
+        for(String word:words){
+            sb.append(findroot(word, set)).append(" ");
+        }
+        return sb.toString().trim();
+        
+    }
+    
 }
